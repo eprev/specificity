@@ -1,0 +1,32 @@
+{
+    "name": "node-specificity",
+    "description": "CSS Explorer",
+    "keywords": ["css"],
+    "version": "0.1.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/eprev/specificity.git"
+    },
+    "maintainers": [
+        "Anton Eprev <a.eprev@gmail.com>"
+    ],
+    "main": "./src/specificity.js",
+    "engines": {
+        "node": ">= 0.8"
+    },
+    "scripts": {
+        "test": "grunt test --verbose"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "grunt": "*",
+        "grunt-contrib-clean": "*",
+        "grunt-contrib-jshint": "*",
+        "grunt-contrib-watch": "*",
+        "jasmine-node": "*",
+        "istanbul": "*"
+    },
+    "publishConfig": {
+        "tag": "unstable"
+    }
+}

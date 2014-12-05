@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2014 Anton Eprev
+Copyright (c) 2014 Anton Eprev <a.eprev@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
