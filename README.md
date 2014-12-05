@@ -2,7 +2,7 @@
 
 Explore your CSS!
 
-## Intsall
+## Install
 
 ```
 $ npm install -g node-specificity
