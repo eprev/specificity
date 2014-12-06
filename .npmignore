@@ -1,0 +1,8 @@
+.gitignore
+.jshintrc
+.editorconfig
+.travis.yml
+node_modules
+spec
+npm-shrinkwrap.json
+coverage

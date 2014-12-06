@@ -10,6 +10,7 @@
     "maintainers": [
         "Anton Eprev <a.eprev@gmail.com>"
     ],
+    "bin": "./bin/specificity",
     "main": "./src/specificity.js",
     "engines": {
         "node": ">= 0.8"
@@ -24,6 +25,7 @@
         "grunt-contrib-jshint": "*",
         "grunt-contrib-watch": "*",
         "jasmine-node": "*",
+        "postcss": "*",
         "istanbul": "*"
     },
     "publishConfig": {

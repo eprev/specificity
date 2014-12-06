@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+var specificity = require('../src/specificity');
+
