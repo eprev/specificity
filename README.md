@@ -1,4 +1,4 @@
-# Specificity
+# Specificity [![Build Status](https://travis-ci.org/eprev/specificity.svg?branch=master)](https://travis-ci.org/eprev/specificity)
 
 Explore your CSS!
 
