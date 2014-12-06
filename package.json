@@ -18,7 +18,10 @@
     "scripts": {
         "test": "grunt test --verbose"
     },
-    "dependencies": {},
+    "dependencies": {
+        "commander": "*",
+        "glob": "*"
+    },
     "devDependencies": {
         "grunt": "*",
         "grunt-contrib-clean": "*",

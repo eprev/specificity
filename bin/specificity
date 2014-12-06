@@ -1,4 +1,67 @@
 #!/usr/bin/env node
 
-var specificity = require('../src/specificity');
+var program = require('commander'),
+    fs = require('fs'),
+    path = require('path'),
+    glob = require('glob'),
+    specificity = require('..'),
+    pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json')));
 
+program
+    .version(pkg.version)
+    ;
+
+program
+    .command('parse [file...]')
+    .description('extract data from CSS files')
+    .option('-d, --directory <path>', 'change the working directory')
+    .option('-o, --output <file>',    'save results to the given file')
+    .option('--unique-selectors',     'consider only unique selectors')
+    .on('--help', function() {
+        console.log('  Examples:');
+        console.log('');
+        console.log('    $ node-specificity parse css/main.css css/print.css');
+        console.log('    $ node-specificity parse css/**/*.css');
+        console.log('    $ node-specificity parse --output=css.json --directory=css **/*.css');
+        console.log('');
+    })
+    .action(function (options) {
+        var cwd = this.directory ? path.resolve(this.directory) : process.cwd(),
+            files = [];
+        options.forEach(function (opt) {
+            glob.sync(path.join(cwd, opt)).forEach(function (file) {
+                var name = path.relative(cwd, file);
+                if (files.indexOf(name) === -1) {
+                    files.push(name);
+                }
+            });
+        });
+        if (files.length) {
+            var result = specificity.parse(files, {
+                cwd: cwd,
+                uniqueSelectors: !!this.uniqueSelectors
+            });
+            console.log(result);
+        } else {
+            this.help();
+        }
+    })
+    ;
+
+program
+    .command('explore <file>')
+    .description('represent the outcomes of a parse')
+    .option('-r, --report <name>', 'specify the report name')
+    .action(function (file, options) {
+        console.log(file, options);
+    })
+    ;
+
+program
+    .on('*', function() {
+        program.help();
+    });
+
+program.parse(process.argv);
+
+if (!program.args.length) program.help();

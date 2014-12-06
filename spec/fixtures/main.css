@@ -1,0 +1,31 @@
+a {
+    color: green;
+}
+
+a:link {
+    color: red;
+}
+
+.link {
+    color: blue !important;
+}
+
+.link.active {
+    color: white;
+}
+
+.link:not(a) {
+    color: black;
+}
+
+.link:before {
+    content: '';
+}
+
+#footer {
+    color: yellow;
+}
+
+body #header #menu .item a.link:visited::after {
+    content: '';
+}
