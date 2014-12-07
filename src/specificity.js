@@ -61,10 +61,10 @@ exports.parse = function (files, options) {
             result[o.file].series.push(o);
         });
         for (var i in result) {
-            profile(result[i])
+            profile(result[i]);
         }
     } else {
-        profile(result['*'])
+        profile(result['*']);
     }
 
     function median(series) {
@@ -81,7 +81,7 @@ exports.parse = function (files, options) {
             } else {
                 return (a + b) / 2;
             }
-        };
+        }
     }
 
     function profile(data) {
@@ -142,7 +142,7 @@ exports.parse = function (files, options) {
         var distrib = data.distrib = {};
         var n = data.series.length;
         var a = [], b = [], c = [], abc = [];
-        data.series.forEach(function (o, i) {
+        data.series.forEach(function (o) {
             check(o.important, 'important');
             check(o.weight[0], 'weight_a');
             check(o.weight[1], 'weight_b');
