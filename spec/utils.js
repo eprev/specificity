@@ -1,6 +1,6 @@
 var diff = require('diff');
 
-exports.V = require('../lib/v');
+exports.specificity = require('..');
 
 exports.setupMatchers = function () {
 

@@ -29,7 +29,8 @@
         "grunt-contrib-watch": "*",
         "jasmine-node": "*",
         "postcss": "*",
-        "istanbul": "*"
+        "istanbul": "*",
+        "diff": "*"
     },
     "publishConfig": {
         "tag": "unstable"

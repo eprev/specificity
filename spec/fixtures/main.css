@@ -1,31 +1,17 @@
-a {
-    color: green;
-}
+a {}
 
-a:link {
-    color: red;
-}
+a span {}
 
-.link {
-    color: blue !important;
-}
+a:link:first-child {}
 
-.link.active {
-    color: white;
-}
+.link {}
 
-.link:not(a) {
-    color: black;
-}
+.link.active {}
 
-.link:before {
-    content: '';
-}
+.link:not(a) {}
 
-#footer {
-    color: yellow;
-}
+.link[external]:before {}
 
-body #header #menu .item a.link:visited::after {
-    content: '';
-}
+#footer * > * {}
+
+body #header #menu .item a.link:visited::after {}
