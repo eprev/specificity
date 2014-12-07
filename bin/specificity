@@ -41,7 +41,11 @@ program
                 cwd: cwd,
                 uniqueSelectors: !!this.uniqueSelectors
             });
-            console.log(result);
+            if (this.output) {
+                fs.writeFileSync(this.output, JSON.stringify(result));
+            } else {
+                console.log(JSON.stringify(result));
+            }
         } else {
             this.help();
         }
@@ -53,7 +57,13 @@ program
     .description('represent the outcomes of a parse')
     .option('-r, --report <name>', 'specify the report name')
     .action(function (file, options) {
-        console.log(file, options);
+        var json = '';
+        if (file === '-') {
+            json = readStdInSync();
+        } else {
+            json = fs.readFileSync(file, 'utf8');
+        }
+        console.log(json, options);
     })
     ;
 
@@ -65,3 +75,30 @@ program
 program.parse(process.argv);
 
 if (!program.args.length) program.help();
+
+function readStdInSync() {
+    var result = '',
+        bufSize = 512,
+        buf = new Buffer(bufSize),
+        bytes;
+    process.stdin.resume();
+    for (;;) {
+        try {
+            bytes = fs.readSync(process.stdin.fd, buf, 0, bufSize);
+        } catch (e) {
+            if (e.code === 'EAGAIN') {
+                console.error('ERROR: interactive stdin input not supported.');
+                process.exit(1);
+            } else if (e.code === 'EOF') {
+                break;
+            }
+            throw e;
+        }
+        if (bytes === 0) {
+            break;
+        }
+        result += buf.toString('utf8', 0, bytes);
+    }
+    process.stdin.pause();
+    return result;
+}
