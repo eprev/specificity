@@ -21,25 +21,25 @@ Specificity parses your CSS files and collects information about selectors speci
 ```js
 {
     series: SERIES // Sorted out selectors by their specificity
-    important: {   // Data on using of `!important` directive
+    important: {   // Using of `!important` directive
         min: 0,    // Min value (number of selector)
         max: 0,    // Max value (number of selector)
         avg: 0,    // Average value (number of selector)
         med: 0     // Median (number of selector)
     },
-    weight_a: {
+    weight_a: {    // Using of IDs in selectors
         /* --//-- */
     },
-    weight_b: {
+    weight_b: {    // Using of classes, pseudo-classes and attributes in selectors
         /* --//-- */
     },
-    weight_c: {
+    weight_c: {    // Using of elements and pseudo-elements in selectors
         /* --//-- */
     },
-    weight:  {
+    weight:  {     // Contains min, max, average and median specificity
         /* --//-- */
     },
-    distrib: { // Specificity distribution
+    distrib: { // Specificity distribution (specificity => number of selectors)
         '0,0,1': 1,
         '0,0,2': 1,
         '0,1,0': 1,
@@ -63,8 +63,12 @@ Specificity parses your CSS files and collects information about selectors speci
 }
 ```
 
-## Install
+## Using
 
 ```
 $ npm install -g node-specificity
+```
+
+```
+$ node-specificity parse --directory=css **/*.css | node-specificity explore -
 ```
