@@ -1,6 +1,6 @@
 # Specificity [![Build Status](https://travis-ci.org/eprev/specificity.svg?branch=master)](https://travis-ci.org/eprev/specificity) [![NPM Version](https://img.shields.io/npm/v/node-specificity.svg)](https://www.npmjs.org/package/node-specificity)
 
-Explore your CSS!
+Explore your CSS through visualization!
 
 Specificity parses your CSS files and collects information about selectors specificity. As a result you get JSON with the following structure:
 
