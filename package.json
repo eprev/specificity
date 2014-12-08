@@ -20,7 +20,10 @@
     },
     "dependencies": {
         "commander": "*",
-        "glob": "*"
+        "glob": "*",
+        "cli-table": "*",
+        "bars": "*",
+        "colors": "*"
     },
     "devDependencies": {
         "grunt": "*",

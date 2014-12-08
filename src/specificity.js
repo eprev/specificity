@@ -18,17 +18,21 @@ exports.parse = function (files, options) {
 
     var multiple = files.length > 1,
         result = {
-            '*': {
-                series: []
-            }
-        },
-        series = result['*'].series;
+            files  : {
+                '*': {
+                    series: []
+                }
+            },
+            options: options
+        };
+
+    var series = result.files['*'].series;
 
     files.forEach(function (file) {
         var css = fs.readFileSync(path.join(options.cwd, file), 'utf8'),
             root = postcss.parse(css, { safe: true });
         if (multiple) {
-            result[file] = {
+            result.files[file] = {
                 series: []
             };
         }
@@ -58,13 +62,13 @@ exports.parse = function (files, options) {
 
     if (multiple) {
         series.forEach(function(o) {
-            result[o.file].series.push(o);
+            result.files[o.file].series.push(o);
         });
-        for (var i in result) {
-            profile(result[i]);
+        for (var i in result.files) {
+            profile(result.files[i]);
         }
     } else {
-        profile(result['*']);
+        profile(result.files['*']);
     }
 
     function median(series) {
@@ -169,8 +173,6 @@ exports.parse = function (files, options) {
         data.weight_c.med = median(c);
         data.weight.med   = median(abc);
     }
-
-    result.options = options;
 
     return result;
 };

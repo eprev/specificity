@@ -53,17 +53,35 @@ program
     ;
 
 program
-    .command('explore <file>')
+    .command('explore <file...>')
     .description('represent the outcomes of a parse')
-    .option('-r, --report <name>', 'specify the report name')
-    .action(function (file, options) {
-        var json = '';
-        if (file === '-') {
-            json = readStdInSync();
-        } else {
-            json = fs.readFileSync(file, 'utf8');
+    .option('-r, --report <name>', 'specify the report name [inspect]: inspect, json', 'inspect')
+    .action(function (files, options) {
+        var data = files.map(function (file) {
+            var json;
+            try {
+                if (file === '-') {
+                    json = readStdInSync();
+                } else {
+                    json = fs.readFileSync(file, 'utf8');
+                }
+                json = JSON.parse(json)
+            } catch (e) {
+                console.error(e.toString());
+                process.exit(2);
+            }
+            return {
+                file: file,
+                json: json
+            };
+        });
+        try {
+            var report = require(path.join('..', 'src', 'reports', this.report));
+        } catch (e) {
+            console.error('ERROR: unsupported report.' + e.toString());
+            process.exit(3);
         }
-        console.log(json, options);
+        report(data);
     })
     ;
 

@@ -1,0 +1,19 @@
+a {}
+
+a span {}
+
+a:link:first-child {}
+
+.link {}
+
+.link.active {}
+
+.link:not(a) {
+    color: inherit !important;
+}
+
+.link[external]:before {}
+
+#footer * > * {}
+
+body #header #menu .item a.link:visited::after {}
