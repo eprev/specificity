@@ -2,6 +2,57 @@
 
 Explore your CSS through visualization!
 
+## Using
+
+```
+$ npm install -g node-specificity
+```
+
+```
+$ pwd
+/deploy/static/
+
+$ node-specificity parse --directory=css **/*.css | node-specificity explore -
+File: -
+
+  Working directory: /deploy/static/css
+
+  ┌───────────────────────────────────────────────────┬─────────────┬───┬────────────────┐
+  │ selector                                          │ specificity │ ! │ location       │
+  ├───────────────────────────────────────────────────┼─────────────┼───┼────────────────┤
+  │ h5                                                │       0,0,1 │ 0 │ main.css:117   │
+  │ input                                             │       0,0,1 │ 0 │ main.css:11    │
+  │ h6                                                │       0,0,1 │ 0 │ main.css:122   │
+  │ body                                              │       0,0,1 │ 0 │ main.css:6     │
+  ...
+  │ .post__content pre .smalltalk .class              │       0,3,1 │ 0 │ main.css:422   │
+  │ .post__content pre .clojure .attribute            │       0,3,1 │ 0 │ main.css:468   │
+  │ .post__content pre .rules .value .number          │       0,4,1 │ 0 │ main.css:422   │
+  │ .post__content pre .ruby .symbol .string          │       0,4,1 │ 0 │ main.css:422   │
+  └───────────────────────────────────────────────────┴─────────────┴───┴────────────────┘
+
+  ┌─────┬────────────────┬────────┬────────┬────────┬────────┐
+  │     │    specificity │      a │      b │      c │      ! │
+  ├─────┼────────────────┼────────┼────────┼────────┼────────┤
+  │ max │          0,4,1 │      0 │      4 │      3 │      0 │
+  │ avg │    0,1.71,0.85 │      0 │   1.71 │   0.85 │      0 │
+  │ med │          0,2,1 │      0 │      2 │      1 │      0 │
+  └─────┴────────────────┴────────┴────────┴────────┴────────┘
+
+  0,0,1 | ∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙                       | 32
+  0,0,2 | ∙                                                            | 1
+  0,0,3 | ∙                                                            | 1
+  0,1,0 | ∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙                         | 30
+  0,1,1 | ∙∙                                                           | 2
+  0,1,2 | ∙∙∙∙                                                         | 3
+  0,2,0 | ∙∙                                                           | 2
+  0,2,1 | ∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙      | 46
+  0,3,1 | ∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙ | 50
+  0,4,1 | ∙∙                                                           | 2
+```
+
+## WAT
+
 Specificity parses your CSS files and collects information about selectors specificity. As a result you get JSON with the following structure:
 
 ```js
@@ -61,14 +112,4 @@ Specificity parses your CSS files and collects information about selectors speci
     start: { line: 1, column: 1 }, // Start offset within the file
     end: { line: 1, column: 4 } }  // End offset
 }
-```
-
-## Using
-
-```
-$ npm install -g node-specificity
-```
-
-```
-$ node-specificity parse --directory=css **/*.css | node-specificity explore -
 ```
