@@ -26,6 +26,8 @@ exports.parse = function (files, options) {
             options: options
         };
 
+    var uniqueSelectors = {};
+
     var series = result.files['*'].series;
 
     files.forEach(function (file) {
@@ -44,16 +46,21 @@ exports.parse = function (files, options) {
                 }
             });
             rule.selectors.forEach(function (selector) {
-                var weight = getSpecificity(selector);
-                var o = {
-                    selector: selector,
-                    important: important,
-                    weight: weight,
-                    file: file,
-                    start: rule.source.start,
-                    end: rule.source.end
-                };
-                series.push(o);
+                if (options.uniqueSelectors && uniqueSelectors[selector]) {
+                    uniqueSelectors[selector]++;
+                } else {
+                    uniqueSelectors[selector] = 1;
+                    var weight = getSpecificity(selector);
+                    var o = {
+                        selector: selector,
+                        important: important,
+                        weight: weight,
+                        file: file,
+                        start: rule.source.start,
+                        end: rule.source.end
+                    };
+                    series.push(o);
+                }
             });
         });
     });
@@ -172,6 +179,10 @@ exports.parse = function (files, options) {
         data.weight_b.med = median(b);
         data.weight_c.med = median(c);
         data.weight.med   = median(abc);
+    }
+
+    if (options.uniqueSelectors) {
+        result.uniqueSelectors = uniqueSelectors;
     }
 
     return result;

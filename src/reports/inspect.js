@@ -16,41 +16,57 @@ function toFixed(v) {
 
 function tab(str) {
     return str.replace(/^/mg, '  ');
-
 }
 
 module.exports = function (data) {
     data.forEach(function (data) {
+
+        var options = data.json.options;
+
         console.log('File:', data.file.gray);
         console.log();
-        console.log('  Working directory:', data.json.options.cwd.gray);
+        console.log('  Working directory:', options.cwd.gray);
 
         console.log();
 
+        var head = ['selector'],
+            colAligns = ['left'];
+        if (options.uniqueSelectors) {
+            head.push('#');
+            colAligns.push('right');
+        }
+        head.push('specificity', '!', 'location');
+        colAligns.push('right', 'right', 'left');
         var table = new Table({
-            head     : [ 'selector', 'specificity', '!',     'location' ],
-            colAligns: [ 'left',     'right',       'right', 'left' ],
+            head     : head,
+            colAligns: colAligns,
             style: {
                 head: [ 'green' ],
                 compact: true
             }
         });
         data.json.files['*'].series.forEach(function (o) {
-            table.push([
-                o.important ? o.selector.red : o.selector,
+            var row = [
+                o.important ? o.selector.red : o.selector
+            ];
+            if (options.uniqueSelectors) {
+                row.push(data.json.uniqueSelectors[o.selector]);
+            }
+            row.push(
                 o.weight,
                 o.important ? o.important.toString().red : 0,
                 o.file + ':' + o.start.line + (o.start.column > 1 ? '|' + o.start.column : '')
-            ]);
+            );
+            table.push(row);
         });
         console.log(tab(table.toString()));
 
         console.log();
 
         var multiple = Object.keys(data.json.files).length > 1;
-        var head      = [''],
-            colAligns = ['right'],
-            colWidths = [5];
+        head      = [''];
+        colAligns = ['right'];
+        var colWidths = [5];
         if (multiple) {
             head.push(
                 'file'
