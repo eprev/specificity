@@ -1,6 +1,6 @@
 # Specificity [![Build Status](https://travis-ci.org/eprev/specificity.svg?branch=master)](https://travis-ci.org/eprev/specificity) [![NPM Version](https://img.shields.io/npm/v/node-specificity.svg)](https://www.npmjs.org/package/node-specificity)
 
-Explore your CSS through visualization!
+Explore your CSS through visualization! Specificity parses your CSS files and collects information about selectors specificity in profiles. You can use `specificiy`’s reports to explore these profiles or write your own.
 
 ## Using
 
@@ -13,21 +13,21 @@ $ npm install -g node-specificity
 Specificy provides the following commands:
 
 * Firstly, you need to create a profile. Run `parse` command to create it. Profile is a regular JSON file.
-* Lately you can explore created profiles by using `explore` command. You just need to specify the report.
+* Next, since you have created the profile, you can explore it by using `explore` command. You just need to specify the report.
 
-Specificity supports the following reports: `default` and `json`.
+Specificity supports the following reports: `default` (is used by default) and `json`.
 
-### `default` report
+### `default`
 
-Prints the list of selectors, specificity, using of `!important` directive and location in the file. Prints max, min, average and median values of specificity in the summary. Prints specificty distribution histogram.
+Prints the list of selectors, specificity, using of `!important` directive and location in the file. Prints max, min, average and median values of specificity in the summary. Outputs the specificty distribution histogram.
 
-### `json` report
+### `json`
 
-Prints out contents of the profile.
+Prints out the contents of the profile.
 
 ### Example
 
-In the example below `specificity` creates the profile and outputs it to the standart input of another `specificty` process that prints out the default report results.
+In the example below `specificity` creates a profile and outputs it to the standart input of another `specificty` process that prints out the default report results.
 
 ```
 $ pwd
