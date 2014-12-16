@@ -4,9 +4,30 @@ Explore your CSS through visualization!
 
 ## Using
 
+Installing:
+
 ```
 $ npm install -g node-specificity
 ```
+
+Specificy provides the following commands:
+
+* Firstly, you need to create a profile. Run `parse` command to create it. Profile is a regular JSON file.
+* Lately you can explore created profiles by using `explore` command. You just need to specify the report.
+
+Specificity supports the following reports: `default` and `json`.
+
+### `default` report
+
+Prints the list of selectors, specificity, using of `!important` directive and location in the file. Prints max, min, average and median values of specificity in the summary. Prints specificty distribution histogram.
+
+### `json` report
+
+Prints out contents of the profile.
+
+### Example
+
+In the example below `specificity` creates the profile and outputs it to the standart input of another `specificty` process that prints out the default report results.
 
 ```
 $ pwd
@@ -51,16 +72,18 @@ File: -
   0,4,1 | ∙∙                                                           | 2
 ```
 
-## WAT
+## Profile structure
 
 Specificity parses your CSS files and collects information about selectors specificity. As a result you get JSON with the following structure:
 
 ```js
 {
-    '*': FILE,   // Container of the specific file. Pseudo-file '*' refers to the data of all files.
-    'main.css': FILE,
-    /* ... */
-    'print.css': FILE,
+    files: {
+        '*': FILE,   // Container of the specific file. Pseudo-file '*' refers to the data of all files.
+        'main.css': FILE,
+        /* ... */
+        'print.css': FILE,
+    },
     options: {
         cwd: '/deploy/static/css' // Working directory. All files have names relative to this directory.
     }
