@@ -13,16 +13,17 @@ program
 
 program
     .command('parse [file...]')
-    .description('extract data from CSS files')
+    .description('extract data from CSS files and creates a profile')
     .option('-d, --directory <path>', 'change the working directory')
-    .option('-o, --output <file>',    'save results to the given file')
+    .option('-o, --output <file>',    'save the profile to the given file')
+    .option('-l, --label <name>',     'set custom label to the profile')
     .option('--unique-selectors',     'consider only unique selectors')
     .on('--help', function() {
         console.log('  Examples:');
         console.log('');
         console.log('    $ node-specificity parse css/main.css css/print.css');
         console.log('    $ node-specificity parse css/**/*.css');
-        console.log('    $ node-specificity parse --output=css.json --directory=css **/*.css');
+        console.log('    $ node-specificity parse --label=2014-12 --output=css.json --directory=css **/*.css');
         console.log('');
     })
     .action(function (options) {
@@ -39,7 +40,8 @@ program
         if (files.length) {
             var result = specificity.parse(files, {
                 cwd: cwd,
-                uniqueSelectors: !!this.uniqueSelectors
+                uniqueSelectors: !!this.uniqueSelectors,
+                label: this.label ? this.label : ''
             });
             if (this.output) {
                 fs.writeFileSync(this.output, JSON.stringify(result));
@@ -55,7 +57,7 @@ program
 program
     .command('explore <file...>')
     .description('represent the outcomes of a parse')
-    .option('-r, --report <name>', 'specify the report name [inspect]: inspect, json', 'inspect')
+    .option('-r, --report <name>', 'specify the report name [inspect]: inspect, json, server', 'inspect')
     .action(function (files, options) {
         if (files.length === 0) {
             this.help();
