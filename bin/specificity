@@ -57,31 +57,35 @@ program
     .description('represent the outcomes of a parse')
     .option('-r, --report <name>', 'specify the report name [inspect]: inspect, json', 'inspect')
     .action(function (files, options) {
-        var data = files.map(function (file) {
-            var json;
-            try {
-                if (file === '-') {
-                    json = readStdInSync();
-                } else {
-                    json = fs.readFileSync(file, 'utf8');
+        if (files.length === 0) {
+            this.help();
+        } else {
+            var data = files.map(function (file) {
+                var json;
+                try {
+                    if (file === '-') {
+                        json = readStdInSync();
+                    } else {
+                        json = fs.readFileSync(file, 'utf8');
+                    }
+                    json = JSON.parse(json)
+                } catch (e) {
+                    console.error(e.toString());
+                    process.exit(2);
                 }
-                json = JSON.parse(json)
+                return {
+                    file: file,
+                    json: json
+                };
+            });
+            try {
+                var report = require(path.join('..', 'src', 'reports', this.report));
             } catch (e) {
-                console.error(e.toString());
-                process.exit(2);
+                console.error('ERROR: unsupported report.' + e.toString());
+                process.exit(3);
             }
-            return {
-                file: file,
-                json: json
-            };
-        });
-        try {
-            var report = require(path.join('..', 'src', 'reports', this.report));
-        } catch (e) {
-            console.error('ERROR: unsupported report.' + e.toString());
-            process.exit(3);
+            report(data);
         }
-        report(data);
     })
     ;
 
@@ -89,6 +93,14 @@ program
     .on('*', function() {
         program.help();
     });
+
+// EPIPE error happens constantly when program is writing to stdout through a pipe that has been closed.
+// More information: https://github.com/joyent/node/issues/3211
+process.stdout.on('error', function (err) {
+    if (err.code === 'EPIPE') {
+        process.exit();
+    }
+})
 
 program.parse(process.argv);
 
