@@ -83,8 +83,8 @@ exports.parse = function (files, options) {
         if (n % 2) {
             return series[ (n + 1) / 2 ];
         } else {
-            var a = series[ n/2 ],
-                b = series[ n/2 +1 ];
+            var a = series[ n/2 - 1 ],
+                b = series[ n/2 ];
             if (Array.isArray(a)) {
                 return [0, 1, 2].map(function (i) {
                     return (a[i] + b[i]) / 2;
