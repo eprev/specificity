@@ -23,7 +23,8 @@
         "glob": "*",
         "cli-table": "*",
         "bars": "*",
-        "colors": "*"
+        "colors": "*",
+        "express": "*"
     },
     "devDependencies": {
         "grunt": "*",
