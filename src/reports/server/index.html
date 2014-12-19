@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/c3/c3.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <title>Specificity</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            html, body {
+                height: 100%;
+            }
+            body {
+                padding: 4px;
+                box-sizing: border-box;
+            }
+            #menu {
+                margin: 0;
+            }
+            #profiles {
+                margin-top: 4px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="menu" class="row">
+            <div class="col-lg-2">
+                <select id="profiles" class="form-control"></select>
+            </div>
+            <div class="col-lg-10">
+                <div id="tabs" role="tabpanel">
+                    <ul class="nav nav-pills"  role="tablist">
+                        <li role="presentation" class="active"><a href="#distribution" aria-controls="home" role="tab" data-toggle="tab">Distribution</a></li>
+                        <li role="presentation"><a href="#selectors" aria-controls="home" role="tab" data-toggle="tab">No. of selectors</a></li>
+                        <li role="presentation"><a href="#important" aria-controls="home" role="tab" data-toggle="tab">!important</a></li>
+                        <li role="presentation"><a href="#average" aria-controls="home" role="tab" data-toggle="tab">Average</a></li>
+                        <li role="presentation"><a href="#median" aria-controls="home" role="tab" data-toggle="tab">Median</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="tabs-content" class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="distribution"><div id="chart-distribution"></div></div>
+            <div role="tabpanel" class="tab-pane" id="selectors">
+                <div id="chart-selectors"></div>
+                <!-- <div id="chart&#45;selectors&#45;2"></div> -->
+            </div>
+            <div role="tabpanel" class="tab-pane" id="important">
+                <div id="chart-important"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="average">
+                <div id="chart-average"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="median">
+                <div id="chart-median"></div>
+            </div>
+        </div>
+        <script src="/js/d3/d3.js" charset="utf-8"></script>
+        <script src="/js/c3/c3.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="/js/bootstrap/bootstrap.min.js"></script>
+        <script src="/js/main.js"></script>
+    </body>
+</html>
