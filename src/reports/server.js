@@ -6,7 +6,7 @@ var path = require('path');
 module.exports = function (data, reportOptions) {
     var app = express();
     app.use(express.static(path.join(__dirname, 'server')));
-    app.get('/data', function (req, res, next) {
+    app.get('/data', function (req, res) {
         res.json(data);
     });
     app.listen(reportOptions.serverPort, function () {

@@ -1,3 +1,7 @@
+'use strict';
+
+/* global $, c3 */
+
 var profiles;
 
 $.ajax({
@@ -80,7 +84,9 @@ function updateProfileDistribution(files) {
             if (w[1] > max[1]) {
                 w[1] = 0;
                 w[0]++;
-                if (w[0] > max[0]) break;
+                if (w[0] > max[0]) {
+                    break;
+                }
             }
         }
     }
@@ -121,7 +127,6 @@ function updateProfileDistribution(files) {
 function updateProfileSelectors(files) {
     var columns = [];
     // var columns2 = [];
-    var selectors = {};
     var labels = ['x'];
     // var labels2 = ['x'];
 
