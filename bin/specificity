@@ -12,8 +12,8 @@ program
     ;
 
 program
-    .command('parse [file...]')
-    .description('extract data from CSS files and creates a profile')
+    .command('parse <file...>')
+    .description('extract data from CSS files and create a profile')
     .option('-d, --directory <path>', 'change the working directory')
     .option('-o, --output <file>',    'save the profile to the given file')
     .option('-l, --label <name>',     'set custom label to the profile')
@@ -22,8 +22,8 @@ program
         console.log('  Examples:');
         console.log('');
         console.log('    $ node-specificity parse css/main.css css/print.css');
-        console.log('    $ node-specificity parse css/**/*.css');
-        console.log('    $ node-specificity parse --label=2014-12 --output=css.json --directory=css **/*.css');
+        console.log('    $ node-specificity parse css/*.css');
+        console.log('    $ node-specificity parse --label=2014-12 --output=css.json --directory=css *.css');
         console.log('');
     })
     .action(function (options) {
@@ -56,10 +56,33 @@ program
 
 program
     .command('explore <file...>')
-    .description('represent the outcomes of a parse')
-    .option('-r, --report <name>', 'specify the report name [inspect]: inspect, json, server', 'inspect')
-    .option('--server-port <port>', 'server report: port number [4000]', 4000)
-    .action(function (files, options) {
+    .description('represent the outcomes of a parse command')
+    .option('-r, --report <name>',    'specify the report name [inspect]: inspect, json, server', 'inspect')
+    .option('-d, --directory <path>', 'change the working directory')
+    .option('--server-port <port>',   'server report: port number [4000]', 4000)
+    .on('--help', function() {
+        console.log('  Examples:');
+        console.log('');
+        console.log('    $ node-specificity explore profiles/2014-11.json profiles/2014-12.json');
+        console.log('    $ node-specificity explore --report server --directory=profiles *.json');
+        console.log('');
+    })
+    .action(function (options) {
+        var cwd = this.directory ? path.resolve(this.directory) : process.cwd(),
+            files = [];
+        options.forEach(function (opt) {
+            if (opt === '-') {
+                if (files.indexOf('-') === -1) {
+                    files.push('-');
+                }
+            } else {
+                glob.sync(path.join(cwd, opt)).forEach(function (file) {
+                    if (files.indexOf(file) === -1) {
+                        files.push(file);
+                    }
+                });
+            }
+        });
         if (files.length === 0) {
             this.help();
         } else {
