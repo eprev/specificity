@@ -98,6 +98,9 @@ function updateTimelineDistribution() {
     columns.push(labels);
     c3.generate({
         bindto: '#chart-distribution',
+        size: {
+            height: $('#tabs-content').height()
+        },
         padding: {
             top: 10
         },
@@ -152,6 +155,9 @@ function updateTimelineX(target, mapFn) {
     columns.push(labels);
     c3.generate({
         bindto: target,
+        size: {
+            height: $('#tabs-content').height()
+        },
         padding: {
             top: 10
         },
@@ -265,6 +271,9 @@ function updateProfileDistribution(files) {
     columns.push(labels);
     c3.generate({
         bindto: '#chart-distribution',
+        size: {
+            height: $('#tabs-content').height()
+        },
         padding: {
             top: 10
         },
@@ -310,6 +319,9 @@ function updateProfileX(files, target, mapFn) {
     columns.push(labels);
     c3.generate({
         bindto: target,
+        size: {
+            height: $('#tabs-content').height()
+        },
         padding: {
             top: 10
         },
