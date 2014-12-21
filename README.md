@@ -1,4 +1,4 @@
-# Specificity [![Build Status](https://travis-ci.org/eprev/specificity.svg?branch=master)](https://travis-ci.org/eprev/specificity) [![NPM Version](https://img.shields.io/npm/v/node-specificity.svg)](https://www.npmjs.org/package/node-specificity)
+# Specificity [![Build Status](https://travis-ci.org/eprev/specificity.svg?branch=master)](https://travis-ci.org/eprev/specificity) [![NPM Version](https://img.shields.io/npm/v/node-specificity.svg?style=flat)](https://www.npmjs.org/package/node-specificity)
 
 Explore your CSS through visualization! Specificity parses your CSS files and collects information about selectors specificity in profiles. You can use `specificiy`’s reports to explore these profiles or write your own.
 
