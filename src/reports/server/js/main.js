@@ -64,7 +64,6 @@ function updateTimelineDistribution() {
         if (data.weight_c.max > max[2]) {
             max[2] = data.weight_c.max;
         }
-        // TODO #4
         columns.push([profile.json.options.label || profile.file]);
     });
 
@@ -130,7 +129,7 @@ function updateTimelineDistribution() {
     });
 }
 
-function updateTimelineSelectors() {
+function updateTimelineX(target, mapFn) {
     var columns = [];
     var labels = ['x'];
 
@@ -144,7 +143,7 @@ function updateTimelineSelectors() {
 
     for (var i in files) {
         var series = profiles.map(function (profile) {
-            return profile.json.files[i] ? profile.json.files[i].series.length : 0;
+            return profile.json.files[i] ? mapFn(profile.json.files[i]) : 0;
         });
         series.unshift(i);
         columns.push(series);
@@ -152,7 +151,7 @@ function updateTimelineSelectors() {
 
     columns.push(labels);
     c3.generate({
-        bindto: '#chart-selectors',
+        bindto: target,
         padding: {
             top: 10
         },
@@ -174,157 +173,32 @@ function updateTimelineSelectors() {
                 height: 50
             }
         }
+    });
+}
+
+function updateTimelineSelectors() {
+    updateTimelineX('#chart-selectors', function (file) {
+        return file.series.length;
     });
 }
 
 function updateTimelineImportant() {
-    var columns = [];
-    var labels = ['x'];
-
-    var files = {};
-    profiles.forEach(function(profile) {
-        for (var i in profile.json.files) {
-            files[i] = [];
-        }
-        labels.push(profile.json.options.label || profile.file);
-    });
-
-    for (var i in files) {
-        var series = profiles.map(function (profile) {
-            return profile.json.files[i] ? profile.json.files[i].important.avg : 0;
-        });
-        series.unshift(i);
-        columns.push(series);
-    }
-
-    columns.push(labels);
-    c3.generate({
-        bindto: '#chart-important',
-        padding: {
-            top: 10
-        },
-        data: {
-            x: 'x',
-            columns: columns,
-            type: 'line'
-        },
-        axis: {
-            x: {
-                type: 'category',
-                tick: {
-                    culling: {
-                        max: 30
-                    },
-                    rotate: -60,
-                    multiline: false
-                },
-                height: 50
-            }
-        }
+    updateTimelineX('#chart-important', function (file) {
+        return file.important.avg;
     });
 }
 
 function updateTimelineSpecificity() {
-    var columns = [];
-    var labels = ['x'];
-
-    var files = {};
-    profiles.forEach(function(profile) {
-        for (var i in profile.json.files) {
-            files[i] = [];
-        }
-        labels.push(profile.json.options.label || profile.file);
-    });
-
-    for (var i in files) {
-        var series = profiles.map(function (profile) {
-            if (profile.json.files[i]) {
-                var weight = profile.json.files[i].weight.avg;
-                return weight[0] * 100 + weight[1] * 10 + weight[2];
-            } else {
-                return 0;
-            }
-        });
-        series.unshift(i);
-        columns.push(series);
-    }
-
-    columns.push(labels);
-    c3.generate({
-        bindto: '#chart-average',
-        padding: {
-            top: 10
-        },
-        data: {
-            x: 'x',
-            columns: columns,
-            type: 'line'
-        },
-        axis: {
-            x: {
-                type: 'category',
-                tick: {
-                    culling: {
-                        max: 30
-                    },
-                    rotate: -60,
-                    multiline: false
-                },
-                height: 50
-            }
-        }
+    updateTimelineX('#chart-average', function (file) {
+        var weight = file.weight.avg;
+        return weight[0] * 100 + weight[1] * 10 + weight[2];
     });
 }
 
 function updateTimelineMedian() {
-    var columns = [];
-    var labels = ['x'];
-
-    var files = {};
-    profiles.forEach(function(profile) {
-        for (var i in profile.json.files) {
-            files[i] = [];
-        }
-        labels.push(profile.json.options.label || profile.file);
-    });
-
-    for (var i in files) {
-        var series = profiles.map(function (profile) {
-            if (profile.json.files[i]) {
-                var weight = profile.json.files[i].weight.med;
-                return weight[0] * 100 + weight[1] * 10 + weight[2];
-            } else {
-                return 0;
-            }
-        });
-        series.unshift(i);
-        columns.push(series);
-    }
-
-    columns.push(labels);
-    c3.generate({
-        bindto: '#chart-median',
-        padding: {
-            top: 10
-        },
-        data: {
-            x: 'x',
-            columns: columns,
-            type: 'line'
-        },
-        axis: {
-            x: {
-                type: 'category',
-                tick: {
-                    culling: {
-                        max: 30
-                    },
-                    rotate: -60,
-                    multiline: false
-                },
-                height: 50
-            }
-        }
+    updateTimelineX('#chart-median', function (file) {
+        var weight = file.weight.med;
+        return weight[0] * 100 + weight[1] * 10 + weight[2];
     });
 }
 
@@ -422,89 +296,20 @@ function updateProfileDistribution(files) {
     });
 }
 
-function updateProfileSelectors(files) {
-    var columns = [];
-    // var columns2 = [];
-    var labels = ['x'];
-    // var labels2 = ['x'];
-
-    var keys = Object.keys(files);
-
-    keys.forEach(function(name) {
-        // if (name !== '*') {
-        //     columns2.push([name, files[name].series.length]);
-        //     labels2.push(name);
-        // }
-        columns.push([name, files[name].series.length]);
-        labels.push(name);
-    });
-
-    columns.push(labels);
-    // columns2.push(labels2);
-    c3.generate({
-        bindto: '#chart-selectors',
-        padding: {
-            top: 10
-        },
-        data: {
-            x: 'x',
-            columns: columns,
-            type: 'bar'
-        },
-        axis: {
-            x: {
-                type: 'category',
-                tick: {
-                    culling: {
-                        max: 30
-                    },
-                    rotate: -60,
-                    multiline: false
-                },
-                height: 50
-            }
-        }
-    });
-    // c3.generate({
-    //     bindto: '#chart-selectors-2',
-    //     padding: {
-    //         top: 10
-    //     },
-    //     data: {
-    //         x: 'x',
-    //         columns: columns2,
-    //         type: 'pie'
-    //     },
-    //     axis: {
-    //         x: {
-    //             type: 'category',
-    //             tick: {
-    //                 culling: {
-    //                     max: 30
-    //                 },
-    //                 rotate: -60,
-    //                 multiline: false
-    //             },
-    //             height: 50
-    //         }
-    //     }
-    // });
-}
-
-function updateProfileImportant(files) {
+function updateProfileX(files, target, mapFn) {
     var columns = [];
     var labels = ['x'];
 
     var keys = Object.keys(files);
 
     keys.forEach(function (name) {
-        columns.push([name, files[name].important.avg]);
+        columns.push([name, mapFn(files[name])]);
         labels.push(name);
     });
 
     columns.push(labels);
     c3.generate({
-        bindto: '#chart-important',
+        bindto: target,
         padding: {
             top: 10
         },
@@ -526,82 +331,32 @@ function updateProfileImportant(files) {
                 height: 50
             }
         }
+    });
+}
+
+function updateProfileSelectors(files) {
+    updateProfileX(files, '#chart-selectors', function (file) {
+        return file.series.length;
+    });
+}
+
+function updateProfileImportant(files) {
+    updateProfileX(files, '#chart-important', function (file) {
+        return file.important.avg;
     });
 }
 
 function updateProfileSpecificity(files) {
-    var columns = [];
-    var labels = ['x'];
-
-    var keys = Object.keys(files);
-
-    keys.forEach(function (name) {
-        var weight = files[name].weight.avg;
-        columns.push([name, weight[0] * 100 + weight[1] * 10 + weight[2]]);
-        labels.push(name);
-    });
-    columns.push(labels);
-    c3.generate({
-        bindto: '#chart-average',
-        padding: {
-            top: 10
-        },
-        data: {
-            x: 'x',
-            columns: columns,
-            type: 'bar'
-        },
-        axis: {
-            x: {
-                type: 'category',
-                tick: {
-                    culling: {
-                        max: 30
-                    },
-                    rotate: -60,
-                    multiline: false
-                },
-                height: 50
-            }
-        }
+    updateProfileX(files, '#chart-average', function (file) {
+        var weight = file.weight.avg;
+        return weight[0] * 100 + weight[1] * 10 + weight[2];
     });
 }
 
-function updateProfileMedian (files) {
-    var columns = [];
-    var labels = ['x'];
-    var keys = Object.keys(files);
-
-    keys.forEach(function (name) {
-        var weight = files[name].weight.med;
-        columns.push([name, weight[0] * 100 + weight[1] * 10 + weight[2]]);
-        labels.push(name);
-    });
-
-    columns.push(labels);
-    c3.generate({
-        bindto: '#chart-median',
-        padding: {
-            top: 10
-        },
-        data: {
-            x: 'x',
-            columns: columns,
-            type: 'bar'
-        },
-        axis: {
-            x: {
-                type: 'category',
-                tick: {
-                    culling: {
-                        max: 30
-                    },
-                    rotate: -60,
-                    multiline: false
-                },
-                height: 50
-            }
-        }
+function updateProfileMedian(files) {
+    updateProfileX(files, '#chart-median', function (file) {
+        var weight = file.weight.med;
+        return weight[0] * 100 + weight[1] * 10 + weight[2];
     });
 }
 
