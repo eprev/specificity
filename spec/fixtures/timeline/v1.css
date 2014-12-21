@@ -174,7 +174,7 @@ abbr {
 
 a {
   text-decoration: none;
-  border-bottom: 1px solid #555;
+  border-bottom: 1px solid #555555;
 }
 
 .page {
@@ -329,30 +329,6 @@ a {
 .post__content p {
   margin-top: 0;
 }
-.post__content p > img {
-  display: block;
-  margin: 26px auto;
-  max-width: 100%;
-}
-
-/*ul*/
-.post__content__list {
-  list-style-type: square;
-  padding-left: 1em;
-}
-.post__content__list li {
-  margin: 26px 0;
-}
-
-.post__image {
-  height: 312px;
-  margin-right: auto;
-  margin-bottom: 26px;
-  margin-left: auto;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-size: cover;
-}
 
 .post__footer {
   margin-top: 26px;
@@ -410,7 +386,6 @@ a {
   /*overflow: scroll;*/
   /*-webkit-overflow-scrolling: touch;*/
 }
-
 .post__content pre code,
 .post__content pre .subst,
 .post__content pre .tag .title,
@@ -510,6 +485,7 @@ a {
 .post__content pre .markdown .strong,
 .post__content pre .request,
 .post__content pre .status {
+  font-weight: bold;
   color: #666;
 }
 .post__content pre .function .title {
@@ -530,4 +506,3 @@ a {
 .post__content pre .xml .cdata {
   opacity: 0.5;
 }
-

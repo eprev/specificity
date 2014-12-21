@@ -1,0 +1,508 @@
+@charset "UTF-8";
+/**
+  * Links:
+  * 1. Normalize.css (git.io/normalize)
+  */
+body {
+  margin: 0;
+  /* Remove default margin [1]. */
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  /* Corrects font family not being inherited in all browsers [1]. */
+  font-size: 100%;
+  /* Corrects font size not being inherited in all browsers [1]. */
+  margin: 0;
+  /* Addresses margins set differently in Firefox 4+, Safari 5, and Chrome [1]. */
+}
+
+html {
+  background: #e9eced url(/assets/bg.png);
+  height: 100%;
+}
+
+body {
+  color: #222;
+  height: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+/**
+ * iPhone 4S- 320x480
+ * iPhone 5+ 320x565
+ * Lumia 920 768x1280
+ */
+/**
+ * Links:
+ * 1. The Ultimate Guide to Readable Web Typography
+ *    (http://www.pearsonified.com/2011/12/golden-ratio-typography.php)
+ * 2. The Elements of Typographic Style Applied to the Web
+ *    (http://webtypography.net/toc)
+ * 3. Typograph – Scale & Rhythm
+ *    (http://lamb.cc/typograph/)
+ * 4. Baseline Grid
+ *    (http://www.alistapart.com/articles/settingtypeontheweb/)
+ * 5. The Elements of Typographic Style Applied to the Web
+ *    (http://webtypography.net/toc)
+ * 6. Revised Font Stack
+ *    (http://www.awayback.com/revised-font-stack/)
+ */
+/**
+ * Returns an adjusted line width for the given font size and line height [1].
+ */
+/**
+ * Returns an adjusted line height for the given font size and line width [1].
+ */
+/**
+ * Returns base to the exponent power (base ^ exponent).
+ */
+/* We are Mobile First! */
+/* [1] */
+/**
+ * Modular scale.
+ */
+/**
+ * Typographic scale [3].
+ */
+/* Traditional typographic scale. */
+/**
+ * Vertical rhythm. As we set the font size for headers,
+ * we also need to set appropriate line-heights in multiples of $line-height [4].
+ */
+body {
+  font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+  /* 90% Mac  (Optima) & 54% PC (Candara) [6] */
+  font-size: 18px;
+  line-height: 26px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 26px;
+  /* Vertical rhythm. */
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  /* Enables a font’s native kerning and optional ligatures. */
+  page-break-inside: avoid;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: normal;
+  line-height: 52px;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 52px;
+}
+
+h3 {
+  font-size: 27px;
+  line-height: 52px;
+}
+
+h4 {
+  font-size: 24px;
+  line-height: 26px;
+}
+
+h5 {
+  font-size: 21px;
+  line-height: 26px;
+}
+
+h6 {
+  font-size: 18px;
+  line-height: 26px;
+}
+
+ul, ol, p, pre, blockquote {
+  margin: 26px 0;
+  /* Vertical rhythm. */
+}
+
+blockquote {
+  font-style: italic;
+  border-left: 4px solid #d6d6d6;
+  padding-left: 1em;
+}
+blockquote p + p {
+  text-indent: 0;
+}
+
+ul {
+  list-style-position: outside;
+}
+
+p {
+  margin-bottom: 0;
+  /* Remove line space between paragraphs
+     (http://webtypography.net/Rhythm_and_Proportion/Blocks_and_Paragraphs/2.3.2/). */
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  -o-hyphens: auto;
+  hyphens: auto;
+  /*  Automatically break words at appropriate hyphenation points. */
+}
+
+p + p {
+  margin-top: 0;
+  text-indent: 1em;
+}
+
+code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 18px;
+  line-height: 1;
+  /* Not to change the line-height of the paragraph. */
+}
+
+abbr {
+  letter-spacing: .1em;
+  /* Letterspace abbreviations
+     (http://webtypography.net/Rhythm_and_Proportion/Horizontal_Motion/2.1.6/). */
+}
+
+a {
+  text-decoration: none;
+  border-bottom: 1px solid #555555;
+}
+
+.page {
+  max-width: 980px;
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.page__inner {
+  position: relative;
+  -webkit-box-sizing: border-box;
+  /* iOS Safari 4-, Android 3- */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* IE8+, Opera 12+, Safari 5+, Chrome 19, Android 4+ */
+  -webkit-transform: translate(0, 0, 0);
+  -webkit-transform: translate3d(0, 0);
+  transform: translate(0, 0);
+  transform: translate3d(0, 0, 0);
+  padding: 13px 13px 13px 50px;
+  height: 100%;
+}
+@media all and (min-width: 980px) {
+  .page__inner {
+    padding-left: 13px;
+  }
+}
+
+.page__inner_animated {
+  -webkit-transition: -webkit-transform 500ms ease;
+  transition: transform 500ms ease;
+}
+
+@media all and (max-width: 979px) {
+  .page__inner_swiped {
+    -webkit-transform: translate(80%, 0);
+    -webkit-transform: translate3d(80%, 0, 0);
+    transform: translate(80%, 0);
+    transform: translate3d(80%, 0, 0);
+  }
+}
+
+.page__content {
+  -webkit-box-sizing: border-box;
+  /* iOS Safari 4-, Android 3- */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* IE8+, Opera 12+, Safari 5+, Chrome 19, Android 4+ */
+  min-height: 700px;
+}
+@media all and (min-width: 980px) {
+  .page__content {
+    margin-left: 30%;
+  }
+}
+
+.page__sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80%;
+  height: 100%;
+  -webkit-transform: translate(-100%, 0);
+  -webkit-transform: translate3d(-100%, 0, 0);
+  transform: translate(-100%, 0);
+  transform: translate3d(-100%, 0, 0);
+  -webkit-backface-visibility: hidden;
+}
+@media all and (min-width: 980px) {
+  .page__sidebar {
+    width: 30%;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+.page__sidebar__inner {
+  padding: 13px;
+}
+
+.page__footer {
+  clear: both;
+  padding-top: 26px;
+}
+
+.page__user__name {
+  border-bottom: 0;
+  text-transform: none;
+}
+
+.page__user__picture {
+  width: 156px;
+  height: 156px;
+  background: url(/assets/4-eyed.png) 0 0 no-repeat;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTk2IiBoZWlnaHQ9IjU5NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+NC1FeWVkPC90aXRsZT48ZyBmaWxsPSIjZGZkZmRmIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMDggNTMwdjY3aDM0M3YtNjdoLTM0M3ptMCAwIiBmaWxsPSIjZmVmZmZmIi8+PHBhdGggZD0iTTc5LjUwMiA1OTYuNXYtNDFjMC0yOCAzNy4yODktNDEuMDQgMzcuMjg5LTQxLjA0bDc5LjcwOSA2OS4wNGgyMi41djEzaC0xMzkuNDk4em0zNTYuNDk4LTEzMi41aDI3YzE5IDAgNjUuNSAwIDg1IDgzdjUwaC0xMTJ2LTEzM20tMTEyIDExNi41aDMzdjE2aC0zM3YtMTYiIGZpbGw9IiNmZjI2MDAiLz48cGF0aCBkPSJNMTA4IDIxOHYyODJjMCAxOS41IDUxLjUgODQgODcgODRoMTcxYzQ5IDAgODUtNjYuNSA4NS04NHYtMjgyYzAtNC00OC04MC01Mi04MGgtMjM5LjVjLTQgMC01MS41IDgwLTUxLjUgODAiIGZpbGw9IiNmZmQ0MDAiLz48cGF0aCBkPSJNMTcxIDI5Ni40MjFjLTMwLS41LTY0LS41LTY0LS41di0xMjIuNXM0LjUtMzMuNSA1My0zNGMtMjEuNS41LTI3LjUtMjguNS0yNy41LTQzLjUgMC0xNC41IDAtNDEuNSAyOS01NS41IDI4LjUtMTQgNjkuNSA0IDY5LjUgNHMtMjAuNSAxOC0zNCA1MS41YzEuNSA5LjUgOSA0IDkgNHMxMy00MS41IDEwMC02M2M5NS41LTkuNSAxOTctMTYuNSAyNDYuNSAwLTE5LjUgNjYuNS0xMDEgMTAzLTE0NyAxMDIgNDYgMSA0NiAzNC41IDQ2IDM0LjV2MTIyLjVoLTY0di0xNTdjMCA5LTIxNi41IDcuNS0yMTYuNSA3LjV2MTUwem0wIDAiIGZpbGw9IiNmZjI2MDAiLz48cGF0aCBkPSJNNDg2IDM2OXYtNTVjMC0zNy0zNi0zNy00MC0zN2gtMTVjLTQgMC04IDQtOCA4djExM2MwIDQgNCA4IDggOGgxNWM0IDAgNDAgMCA0MC0zNyIgZmlsbD0iI2ZmZDQwMCIvPjxwYXRoIGQ9Ik02OSAzMTR2NTVjMCAzNyAzNiAzNyA0MCAzN2gxNWM0IDAgOC00IDgtOHYtMTEzYzAtNC00LTgtOC04aC0xNWMtNCAwLTQwIDAtNDAgMzciIGZpbGw9IiNmZmQ0MDAiLz48cGF0aCBkPSJNMjE5IDQ2M3YxN2gxMTZ2LTE3aC0xMTYiIGZpbGw9IiM3NzBiMDAiLz48cGF0aCBkPSJNMzQ4IDM2OWMtMjUuNSAwLTQ2LTIwLjUtNDYtNDZzMjAuNS00NiA0Ni00NiA0NiAyMC41IDQ2IDQ2LTIwLjUgNDYtNDYgNDZtLTE0MiAwYy0yNS41IDAtNDYtMjAuNS00Ni00NnMyMC41LTQ2IDQ2LTQ2IDQ2IDIwLjUgNDYgNDYtMjAuNSA0Ni00NiA0NiIgZmlsbD0iI2ZlZmZmZiIvPjxwYXRoIGQ9Ik0yMDUuNSAzMjNjLTEzIDAtMjMuNS0xMC41LTIzLjUtMjMuNXMxMC41LTIzLjUgMjMuNS0yMy41IDIzLjUgMTAuNSAyMy41IDIzLjUtMTAuNSAyMy41LTIzLjUgMjMuNW0xNDMgMGMtMTMgMC0yMy41LTEwLjUtMjMuNS0yMy41czEwLjUtMjMuNSAyMy41LTIzLjUgMjMuNSAxMC41IDIzLjUgMjMuNS0xMC41IDIzLjUtMjMuNSAyMy41IiBmaWxsPSIjYWFkNmQ3Ii8+PHBhdGggZD0iTTIwNi41IDQwMGMtNDIgMC03Ni41LTM0LjUtNzYuNS03Ni41czM0LjUtNzYuNSA3Ni41LTc2LjVjMzIuMDAzIDAgNTkuNjUxIDIwLjAzMSA3MSA0OC4xNDcgMTEuMzQ5LTI4LjExNyAzOC45OTctNDguMTQ3IDcxLTQ4LjE0NyA0MiAwIDc2LjUgMzQuNSA3Ni41IDc2LjVzLTM0LjUgNzYuNS03Ni41IDc2LjVjLTMyLjAwMyAwLTU5LjY1MS0yMC4wMzEtNzEtNDguMTQ3LTExLjM0OSAyOC4xMTctMzguOTk3IDQ4LjE0Ny03MSA0OC4xNDdtLS41LTMxYzI1LjUgMCA0Ni0yMC41IDQ2LTQ2cy0yMC41LTQ2LTQ2LTQ2LTQ2IDIwLjUtNDYgNDYgMjAuNSA0NiA0NiA0Nm0xNDIgMGMyNS41IDAgNDYtMjAuNSA0Ni00NnMtMjAuNS00Ni00Ni00Ni00NiAyMC41LTQ2IDQ2IDIwLjUgNDYgNDYgNDYiIGZpbGw9IiM3NzBiMDAiLz48L2c+PC9zdmc+);
+  background-size: 100% 100%;
+  /* iOS Safari doesn't support background-size in background shorthand property */
+}
+
+.page__nav {
+  padding: 0;
+  list-style: none;
+}
+
+.page__arrow {
+  position: fixed;
+  margin-top: -48px;
+  width: 24px;
+  height: 96px;
+  top: 50%;
+  left: 13px;
+  background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczpza2V0Y2g9Imh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaC9ucyI+PHRpdGxlPmFycm93X2xlZnQ8L3RpdGxlPjxwYXRoIGQ9Ik02NCA1MTJsLTY0LTI1NiA2NC0yNTZoNjRsLTY0IDI1NiA1NS43MDYgMjIyLjgyNSA4LjI5NCAzMy4xNzVoLTY0em0wIDAiIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiIGZpbGw9IiMzMzMiLz48L3N2Zz4=) 0 0 no-repeat;
+  background-size: 100% 100%;
+  /* iOS Safari doesn't support background-size in background shorthand property */
+  -webkit-transition: left 500ms ease-in-out, -webkit-transform 500ms ease-in-out;
+  transition: left 500ms ease-in-out, transform 500ms ease-in-out;
+  cursor: pointer;
+  z-index: 1;
+}
+@media all and (min-width: 980px) {
+  .page__arrow {
+    display: none;
+  }
+}
+
+.page__arrow_alt {
+  left: 80%;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.support__touch_yes .page__inner {
+  padding-left: 13px;
+}
+.support__touch_yes .page__arrow {
+  display: none;
+}
+
+.post {
+  margin-bottom: 26px;
+}
+
+.post__meta {
+  margin-bottom: 26px;
+  color: #555;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+
+.post__content p {
+  margin-top: 0;
+}
+
+.post__footer {
+  margin-top: 26px;
+}
+
+.archive {
+  display: table;
+  list-style: none;
+  padding: 0;
+}
+
+.archive__item {
+  display: table-row;
+}
+
+.archive__date {
+  display: table-cell;
+  color: #555;
+  text-transform: uppercase;
+  padding-right: 1em;
+  padding-bottom: 26px;
+}
+
+.archive__header {
+  display: table-cell;
+  padding-bottom: 26px;
+}
+
+.archive__header__link {
+  font-size: 21px;
+  line-height: 26px;
+}
+
+.tags {
+  list-style: none;
+  padding: 0;
+}
+
+.tags__item {
+  text-transform: uppercase;
+  margin-bottom: 26px;
+}
+
+.tags__item__link {
+  font-size: 21px;
+  line-height: 26px;
+}
+
+.post__content pre code {
+  display: block;
+  background: #e6e6e6;
+  padding: 26px;
+  line-height: 26px;
+  word-wrap: break-word;
+  /*overflow: scroll;*/
+  /*-webkit-overflow-scrolling: touch;*/
+}
+.post__content pre code,
+.post__content pre .subst,
+.post__content pre .tag .title,
+.post__content pre .lisp .title,
+.post__content pre .clojure .built_in,
+.post__content pre .nginx .title {
+  color: inherit;
+}
+.post__content pre .string,
+.post__content pre .title,
+.post__content pre .constant,
+.post__content pre .parent,
+.post__content pre .tag .value,
+.post__content pre .rules .value,
+.post__content pre .rules .value .number,
+.post__content pre .preprocessor,
+.post__content pre .ruby .symbol,
+.post__content pre .ruby .symbol .string,
+.post__content pre .aggregate,
+.post__content pre .template_tag,
+.post__content pre .django .variable,
+.post__content pre .smalltalk .class,
+.post__content pre .addition,
+.post__content pre .flow,
+.post__content pre .stream,
+.post__content pre .bash .variable,
+.post__content pre .apache .tag,
+.post__content pre .apache .cbracket,
+.post__content pre .tex .command,
+.post__content pre .tex .special,
+.post__content pre .erlang_repl .function_or_atom,
+.post__content pre .markdown .header {
+  color: #54a650;
+}
+.post__content pre .comment,
+.post__content pre .annotation,
+.post__content pre .template_comment,
+.post__content pre .diff .header,
+.post__content pre .chunk,
+.post__content pre .markdown .blockquote {
+  color: #999;
+}
+.post__content pre .number,
+.post__content pre .date,
+.post__content pre .regexp,
+.post__content pre .literal,
+.post__content pre .smalltalk .symbol,
+.post__content pre .smalltalk .char,
+.post__content pre .go .constant,
+.post__content pre .change,
+.post__content pre .markdown .bullet,
+.post__content pre .markdown .link_url {
+  color: #009ad8;
+}
+.post__content pre .label,
+.post__content pre .javadoc,
+.post__content pre .ruby .string,
+.post__content pre .decorator,
+.post__content pre .filter .argument,
+.post__content pre .localvars,
+.post__content pre .array,
+.post__content pre .attr_selector,
+.post__content pre .important,
+.post__content pre .pseudo,
+.post__content pre .pi,
+.post__content pre .doctype,
+.post__content pre .deletion,
+.post__content pre .envvar,
+.post__content pre .shebang,
+.post__content pre .apache .sqbracket,
+.post__content pre .nginx .built_in,
+.post__content pre .tex .formula,
+.post__content pre .erlang_repl .reserved,
+.post__content pre .prompt,
+.post__content pre .markdown .link_label,
+.post__content pre .vhdl .attribute,
+.post__content pre .clojure .attribute,
+.post__content pre .coffeescript .property {
+  color: #8888ff;
+}
+.post__content pre .keyword,
+.post__content pre .id,
+.post__content pre .phpdoc,
+.post__content pre .title,
+.post__content pre .built_in,
+.post__content pre .aggregate,
+.post__content pre .css .tag,
+.post__content pre .javadoctag,
+.post__content pre .phpdoc,
+.post__content pre .yardoctag,
+.post__content pre .smalltalk .class,
+.post__content pre .winutils,
+.post__content pre .bash .variable,
+.post__content pre .apache .tag,
+.post__content pre .go .typename,
+.post__content pre .tex .command,
+.post__content pre .markdown .strong,
+.post__content pre .request,
+.post__content pre .status {
+  font-weight: bold;
+  color: #666;
+}
+.post__content pre .function .title {
+  color: #c83411;
+}
+.post__content pre .markdown .emphasis {
+  font-style: italic;
+}
+.post__content pre .nginx .built_in {
+  font-weight: normal;
+}
+.post__content pre .coffeescript .javascript,
+.post__content pre .javascript .xml,
+.post__content pre .tex .formula,
+.post__content pre .xml .javascript,
+.post__content pre .xml .vbscript,
+.post__content pre .xml .css,
+.post__content pre .xml .cdata {
+  opacity: 0.5;
+}

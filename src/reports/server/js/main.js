@@ -41,7 +41,6 @@ function loadProfile(profileId) {
 /* Timeline Charts */
 
 function updateTimeline() {
-;
     updateTimelineDistribution();
     updateTimelineSelectors();
     updateTimelineImportant();
