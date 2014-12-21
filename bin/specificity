@@ -59,6 +59,9 @@ program
     .description('represent the outcomes of a parse command')
     .option('-r, --report <name>',    'specify the report name [inspect]: inspect, json, server', 'inspect')
     .option('-d, --directory <path>', 'change the working directory')
+    .option('--no-inspect-selectors', 'inspect report: don\'t print selectors table')
+    .option('--no-inspect-summary',   'inspect report: don\'t print summary table')
+    .option('--no-inspect-charts',    'inspect report: don\'t print distribution histogram')
     .option('--server-port <port>',   'server report: port number [4000]', 4000)
     .on('--help', function() {
         console.log('  Examples:');
