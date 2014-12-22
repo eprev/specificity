@@ -1,6 +1,6 @@
 # Specificity [![Build Status](https://travis-ci.org/eprev/specificity.svg?branch=master)](https://travis-ci.org/eprev/specificity) [![NPM Version](https://img.shields.io/npm/v/node-specificity.svg?style=flat)](https://www.npmjs.org/package/node-specificity)
 
-Explore your CSS through visualization! Specificity parses your CSS files and collects information about selectors specificity in profiles. You can use `specificiy`’s reports to explore these profiles or write your own.
+Explore your CSS through visualization! Specificity parses your CSS files, collects information about selectors specificity and saves it as profiles. You can use different reports to explore these profiles or write your own.
 
 ## Using
 
@@ -12,22 +12,22 @@ $ npm install -g node-specificity
 
 Specificy provides the following commands:
 
-* Firstly, you need to create a profile. Run `parse` command to create it. Profile is a regular JSON file.
+* Firstly, you need to create a profile. Run `parse` command to create it and specify one or more CSS files. Profile is a regular JSON file (you can see its structure below).
 * Next, since you have created the profile, you can explore it by using `explore` command. You just need to specify the report.
 
 If you type `node-specificity parse --help` or `node-specificty explore --help` you will get some usage examples.
 
 Specificity supports the following reports: `inspect` (is used by default), `server` and `json`.
 
+### `inspect`
+
+Prints the list of selectors, specificity, using of `!important` directive and location of selectors in the file. Prints max, min, average and median values of specificity in the summary. Outputs the specificty distribution histogram.
+
 ### `server`
 
 Starts a local web server that allows you to explore the specified profiles in any browser.
 
 ![](docs/server-distribution.png)
-
-### `inspect`
-
-Prints the list of selectors, specificity, using of `!important` directive and location in the file. Prints max, min, average and median values of specificity in the summary. Outputs the specificty distribution histogram.
 
 ### `json`
 
