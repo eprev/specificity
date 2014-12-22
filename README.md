@@ -15,9 +15,17 @@ Specificy provides the following commands:
 * Firstly, you need to create a profile. Run `parse` command to create it. Profile is a regular JSON file.
 * Next, since you have created the profile, you can explore it by using `explore` command. You just need to specify the report.
 
-Specificity supports the following reports: `default` (is used by default) and `json`.
+If you type `node-specificity parse --help` or `node-specificty explore --help` you will get some usage examples.
 
-### `default`
+Specificity supports the following reports: `inspect` (is used by default), `server` and `json`.
+
+### `server`
+
+Starts a local web server that allows you to explore the specified profiles in any browser.
+
+![](docs/server-distribution.png)
+
+### `inspect`
 
 Prints the list of selectors, specificity, using of `!important` directive and location in the file. Prints max, min, average and median values of specificity in the summary. Outputs the specificty distribution histogram.
 
@@ -85,7 +93,9 @@ Specificity parses your CSS files and collects information about selectors speci
         'print.css': FILE,
     },
     options: {
-        cwd: '/deploy/static/css' // Working directory. All files have names relative to this directory.
+        cwd  : '/deploy/static/css', // Working directory. All files have names relative to this directory.
+        label: '2014-12', // You can assign an arbitrary label to each profile.
+        uniqueSelectors: false // If set to True, then the profile doesn't contain repeating selectors.
     }
 }
 ```
