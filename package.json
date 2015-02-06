@@ -2,7 +2,7 @@
     "name": "node-specificity",
     "description": "CSS Explorer",
     "keywords": ["css"],
-    "version": "0.1.7",
+    "version": "0.1.8",
     "repository": {
         "type": "git",
         "url": "https://github.com/eprev/specificity.git"
@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "commander": "*",
+        "postcss": "*",
         "glob": "*",
         "cli-table": "*",
         "printf": "*",
@@ -32,7 +33,6 @@
         "grunt-contrib-jshint": "*",
         "grunt-contrib-watch": "*",
         "jasmine-node": "*",
-        "postcss": "*",
         "istanbul": "*",
         "diff": "*"
     }
