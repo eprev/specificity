@@ -3,7 +3,7 @@
 /* exported colors */
 
 var Table = require('cli-table'),
-    bars = require('bars'),
+    bars = require('../../vendors/bars'),
     colors = require('colors');
 
 function toFixed(v) {
