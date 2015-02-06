@@ -22,7 +22,7 @@
         "commander": "*",
         "glob": "*",
         "cli-table": "*",
-        "bars": "*",
+        "jstrace/bars": "*",
         "colors": "*",
         "express": "*"
     },
