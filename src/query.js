@@ -3,7 +3,7 @@
 var utils = require('./utils'),
     parseQuery = require('./query/parser').parse;
 
-module.exports = function (query, data/*, commandOptions*/) {
+module.exports = function (query, data, commandOptions) {
 
     function match(a, b) {
         for (var i = 0; i < 3; i++) {
@@ -23,6 +23,7 @@ module.exports = function (query, data/*, commandOptions*/) {
         );
     } catch (e) {
         console.log('\n  error: invalid query\n');
+        process.exit(4);
     }
 
     data.forEach(function (data) {
@@ -39,7 +40,9 @@ module.exports = function (query, data/*, commandOptions*/) {
 
         data.json.files['*'].series = data.json.files['*'].series.filter(filterFn);
 
-        utils.printSelectors(data);
+        utils.printSelectors(data, commandOptions);
+
+        console.log('\n  Total: ', data.json.files['*'].series.length);
 
     });
 };

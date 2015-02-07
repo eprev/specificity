@@ -79,7 +79,7 @@ function printSummary(data) {
     console.log(tab(table.toString()));
 }
 
-module.exports = function (data, reportOptions) {
+module.exports = function (data, commandOptions) {
     data.forEach(function (data) {
 
         var options = data.json.options;
@@ -91,17 +91,17 @@ module.exports = function (data, reportOptions) {
             console.log('  Label:', options.label.gray);
         }
 
-        if (reportOptions.inspectSelectors) {
+        if (commandOptions.selectors) {
             console.log();
-            utils.printSelectors(data);
+            utils.printSelectors(data, commandOptions);
         }
 
-        if (reportOptions.inspectSummary) {
+        if (commandOptions.summary) {
             console.log();
             printSummary(data);
         }
 
-        if (reportOptions.inspectCharts) {
+        if (commandOptions.charts) {
             console.log();
             console.log(bars(data.json.files['*'].distrib, { bar: '∙'.gray }));
 

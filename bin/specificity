@@ -1,5 +1,14 @@
 #!/usr/bin/env node
 
+var defaults = {
+    columnSize: 80
+};
+
+function toInteger(value, defaultValue) {
+    value = parseInt(value, 10);
+    return isNaN(value) ? defaultValue : value;
+}
+
 var program = require('commander'),
     fs = require('fs'),
     path = require('path'),
@@ -98,10 +107,11 @@ program
     .description('represent the outcomes of a parse command')
     .option('-r, --report <name>',    'specify the report name [inspect]: inspect, json, server', 'inspect')
     .option('-d, --directory <path>', 'change the working directory')
-    .option('--no-inspect-selectors', 'inspect report: don\'t print selectors table')
-    .option('--no-inspect-summary',   'inspect report: don\'t print summary table')
-    .option('--no-inspect-charts',    'inspect report: don\'t print distribution histogram')
-    .option('--server-port <port>',   'server report: port number [4000]', 4000)
+    .option('--no-selectors',         'inspect report: don\'t print selectors table')
+    .option('--no-summary',           'inspect report: don\'t print summary table')
+    .option('--no-charts',            'inspect report: don\'t print distribution histogram')
+    .option('--column-size <length>', 'inspect report: size of the selector column in the report [' + defaults.columnSize + ']', toInteger, defaults.columnSize)
+    .option('--server-port <port>',   'server report: port number [4000]', parseInt, 4000)
     .on('--help', function() {
         console.log('  Examples:');
         console.log('');
@@ -132,17 +142,28 @@ program
     .command('query <file...>')
     .description('run queries against selectors')
     .option('-d, --directory <path>', 'change the working directory')
-    .option('-q, --query <query>',    'query (see examples below)')
+    .option('-q, --query <query>',    'query (see examples)')
+    .option('--column-size <length>', 'size of the selector column in the report [' + defaults.columnSize + ']', toInteger, defaults.columnSize)
     .on('--help', function() {
+        console.log('  Queries:');
+        console.log('');
+        console.log('    1) specificity = 0,1,0');
+        console.log('    2) specificity >= 1,0,0 and specificity < 2,0,0');
+        console.log('    3) specificity = 1,*,*');
+        console.log('    4) specificity > 1,0,0 and not (specificity = 1,1,1)');
+        console.log('    5) important > 0');
+        console.log('    6) a = 1 or b = 1 or c = 1');
+        console.log('');
         console.log('  Examples:');
         console.log('');
         console.log('    $ node-specificity query profiles/2015-02.json --query "specificity > 1,0,0"');
-        console.log('    $ node-specificity query --directory=profiles *.json -q "specifcity = *,5,* and important > 3"');
+        console.log('    $ node-specificity query --directory=profiles *.json -q "specifcity = *,5,* and important > 0"');
         console.log('');
     })
     .action(function (options) {
         if (!this.query) {
             console.error('\n  error: option `-q, --query <query>\' required\n');
+            process.exit(4);
         }
         var profiles = loadProfiles(
             this.directory ? path.resolve(this.directory) : process.cwd(),
@@ -185,7 +206,7 @@ function readStdInSync() {
             bytes = fs.readSync(process.stdin.fd, buf, 0, bufSize);
         } catch (e) {
             if (e.code === 'EAGAIN') {
-                console.error('ERROR: interactive stdin input not supported.');
+                console.error('\nerror: interactive stdin input not supported\n');
                 process.exit(1);
             } else if (e.code === 'EOF') {
                 break;

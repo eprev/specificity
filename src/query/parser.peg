@@ -10,7 +10,7 @@ conjunction
   / factor
 
 factor
-  = "!" _ operand:factor { return "!" + operand }
+  = ( "!" / "not" ) _ operand:factor { return "!" + operand }
   / primary
 
 primary
