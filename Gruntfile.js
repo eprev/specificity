@@ -36,6 +36,8 @@ module.exports = function (grunt) {
             all: [
                 'Gruntfile.js',
                 'src/**/*.js',
+                '!src/vendors/**',
+                '!src/query/parser.js',
                 '!src/reports/server/**/*.js',
                 'src/reports/server/js/main.js',
                 'spec/**/*.js'

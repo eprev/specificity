@@ -15,7 +15,9 @@ Specificy provides the following commands:
 * Firstly, you need to create a profile. Run `parse` command to create it and specify one or more CSS files. Profile is a regular JSON file (you can see its structure below).
 * Next, since you have created the profile, you can explore it by using `explore` command. You just need to specify the report.
 
-If you type `node-specificity parse --help` or `node-specificty explore --help` you will get some usage examples.
+* And finally, you might be interested in running queries against the selectors. For instance, which selectors have higher specificity than `1,0,0`. So, there is the `query` command.
+
+If you type `node-specificity parse --help`, `node-specificty explore --help` or `node-specificty query --help` you will get some usage examples.
 
 Specificity supports the following reports: `inspect` (is used by default), `server` and `json`.
 

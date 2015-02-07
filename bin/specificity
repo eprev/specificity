@@ -54,6 +54,45 @@ program
     })
     ;
 
+function loadProfiles(cwd, options) {
+    var files = [];
+    options.forEach(function (opt) {
+        if (opt === '-') {
+            if (files.indexOf('-') === -1) {
+                files.push('-');
+            }
+        } else {
+            glob.sync(path.join(cwd, opt)).forEach(function (file) {
+                if (files.indexOf(file) === -1) {
+                    files.push(file);
+                }
+            });
+        }
+    });
+    if (files.length === 0) {
+        return;
+    } else {
+        return files.map(function (file) {
+            var json;
+            try {
+                if (file === '-') {
+                    json = readStdInSync();
+                } else {
+                    json = fs.readFileSync(file, 'utf8');
+                }
+                json = JSON.parse(json)
+            } catch (e) {
+                console.error(e.toString());
+                process.exit(2);
+            }
+            return {
+                file: file,
+                json: json
+            };
+        });
+    }
+}
+
 program
     .command('explore <file...>')
     .description('represent the outcomes of a parse command')
@@ -71,49 +110,49 @@ program
         console.log('');
     })
     .action(function (options) {
-        var cwd = this.directory ? path.resolve(this.directory) : process.cwd(),
-            files = [];
-        options.forEach(function (opt) {
-            if (opt === '-') {
-                if (files.indexOf('-') === -1) {
-                    files.push('-');
-                }
-            } else {
-                glob.sync(path.join(cwd, opt)).forEach(function (file) {
-                    if (files.indexOf(file) === -1) {
-                        files.push(file);
-                    }
-                });
-            }
-        });
-        if (files.length === 0) {
-            this.help();
-        } else {
-            var data = files.map(function (file) {
-                var json;
-                try {
-                    if (file === '-') {
-                        json = readStdInSync();
-                    } else {
-                        json = fs.readFileSync(file, 'utf8');
-                    }
-                    json = JSON.parse(json)
-                } catch (e) {
-                    console.error(e.toString());
-                    process.exit(2);
-                }
-                return {
-                    file: file,
-                    json: json
-                };
-            });
+        var profiles = loadProfiles(
+            this.directory ? path.resolve(this.directory) : process.cwd(),
+            options
+        );
+        if (profiles) {
             try {
                 var report = require(path.join('..', 'src', 'reports', this.report));
             } catch (e) {
-                console.error('ERROR: unsupported report.' + e.toString());
+                console.error('\n  error: unsupported report (' + e.message + ')\n');
                 process.exit(3);
             }
-            report(data, this);
+            report(profiles, this);
+        } else {
+            this.help();
+        }
+    })
+    ;
+
+program
+    .command('query <file...>')
+    .description('run queries against selectors')
+    .option('-d, --directory <path>', 'change the working directory')
+    .option('-q, --query <query>',    'query (see examples below)')
+    .on('--help', function() {
+        console.log('  Examples:');
+        console.log('');
+        console.log('    $ node-specificity query profiles/2015-02.json --query "specificity > 1,0,0"');
+        console.log('    $ node-specificity query --directory=profiles *.json -q "specifcity = *,5,* and important > 3"');
+        console.log('');
+    })
+    .action(function (options) {
+        if (!this.query) {
+            console.error('\n  error: option `-q, --query <query>\' required\n');
+        }
+        var profiles = loadProfiles(
+            this.directory ? path.resolve(this.directory) : process.cwd(),
+            options
+        );
+        if (profiles) {
+            var query = require(path.join('..', 'src', 'query'));
+            query(this.query, profiles, this);
+        } else {
+            this.help();
         }
     })
     ;

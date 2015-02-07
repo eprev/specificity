@@ -1,0 +1,54 @@
+start
+  = disjunction
+
+disjunction
+  = left:conjunction _ ( "or" / "||" / "|" ) _ right:disjunction { return left + " || " + right }
+  / conjunction
+
+conjunction
+  = left:factor _ ( "and" / "&&" / "&" ) _ right:conjunction { return left + " && " + right }
+  / factor
+
+factor
+  = "!" _ operand:factor { return "!" + operand }
+  / primary
+
+primary
+  = expression
+  / "(" _ disjunction:disjunction _ ")" { return "(" + disjunction + ")" }
+
+expression "expression"
+  = "specificity" _ ( "==" / "=" ) _ value:specificityMask { return "match(o.weight, " + value + ")"; }
+  / "specificity" _ "!=" _ value:specificityMask { return "!match(o.weight, " + value + ")"; }
+  / "specificity" _ operator:comparison _ value:specificityValue { return "o.weight " + operator + " " + value; }
+  / prop:( "a" / "b" / "c" ) _ operator:comparison _ value:integer { return "o.weight[" + (prop == 'a' ? 0 : prop == 'b' ? 1 : 2) + "] " + operator + " " + value; }
+  / "important" _ operator:comparison _ value:integer { return "o.important " + operator + " " + value; }
+
+comparison "comparison operator"
+  = "==" { return "==" }
+  / "!=" { return "!=" }
+  / ">=" { return ">=" }
+  / "<=" { return "<=" }
+  / "="  { return "==" }
+  / ">"  { return ">"  }
+  / "<"  { return "<"  }
+
+specificityValue "specificity value"
+  =  a:integer "," _ b:integer "," _ c:integer { return "[" + a + ", " + b + ", " + c + "]"; }
+
+specificityMask "specificity value"
+  =  a:maskInteger "," _ b:maskInteger "," _ c:maskInteger { return "[" + a + ", " + b + ", " + c + "]"; }
+
+maskInteger
+  = "*" { return "'*'" }
+  / integer
+
+integer "integer"
+  = digits:[0-9]+ { return parseInt(digits.join(""), 10); }
+
+ws
+  = [ \t]
+
+_
+  = ws*
+

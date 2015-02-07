@@ -2,7 +2,7 @@
     "name": "node-specificity",
     "description": "CSS Explorer",
     "keywords": ["css"],
-    "version": "0.1.8",
+    "version": "0.1.9",
     "repository": {
         "type": "git",
         "url": "https://github.com/eprev/specificity.git"
