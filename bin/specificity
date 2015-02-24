@@ -110,6 +110,7 @@ program
     .option('--no-selectors',         'inspect report: don\'t print selectors table')
     .option('--no-summary',           'inspect report: don\'t print summary table')
     .option('--no-charts',            'inspect report: don\'t print distribution histogram')
+    .option('--no-color',             'disable colors')
     .option('--column-size <length>', 'inspect report: size of the selector column in the report [' + defaults.columnSize + ']', toInteger, defaults.columnSize)
     .option('--server-port <port>',   'server report: port number [4000]', parseInt, 4000)
     .on('--help', function() {
@@ -120,6 +121,7 @@ program
         console.log('');
     })
     .action(function (options) {
+        require('colors').enabled = this.color;
         var profiles = loadProfiles(
             this.directory ? path.resolve(this.directory) : process.cwd(),
             options
@@ -143,6 +145,7 @@ program
     .description('run queries against selectors')
     .option('-d, --directory <path>', 'change the working directory')
     .option('-q, --query <query>',    'query (see examples)')
+    .option('--no-color',             'disable colors')
     .option('--column-size <length>', 'size of the selector column in the report [' + defaults.columnSize + ']', toInteger, defaults.columnSize)
     .on('--help', function() {
         console.log('  Queries:');
@@ -161,6 +164,7 @@ program
         console.log('');
     })
     .action(function (options) {
+        require('colors').enabled = this.color;
         if (!this.query) {
             console.error('\n  error: option `-q, --query <query>\' required\n');
             process.exit(4);
@@ -193,7 +197,7 @@ process.stdout.on('error', function (err) {
 
 program.parse(process.argv);
 
-if (!program.args.length) program.help();
+if (program.rawArgs.length == 2) program.help();
 
 function readStdInSync() {
     var result = '',
