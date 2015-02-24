@@ -170,15 +170,17 @@ exports.parse = function (files, options) {
                 distrib[sw] = 1;
             }
         });
-        fin('important');
-        fin('weight_a');
-        fin('weight_b');
-        fin('weight_c');
-        fin('weight');
-        data.weight_a.med = median(a);
-        data.weight_b.med = median(b);
-        data.weight_c.med = median(c);
-        data.weight.med   = median(abc);
+        if (data.series.length) {
+            fin('important');
+            fin('weight_a');
+            fin('weight_b');
+            fin('weight_c');
+            fin('weight');
+            data.weight_a.med = median(a);
+            data.weight_b.med = median(b);
+            data.weight_c.med = median(c);
+            data.weight.med   = median(abc);
+        }
     }
 
     if (options.uniqueSelectors) {

@@ -8,7 +8,9 @@ var utils = require('../utils'),
     colors = require('colors');
 
 function toFixed(v) {
-    if (Array.isArray(v)) {
+    if (v === null) {
+        return '-';
+    } else if (Array.isArray(v)) {
         return v.map(toFixed);
     } else {
         return parseInt(v) === v ? v : v.toFixed(2);
