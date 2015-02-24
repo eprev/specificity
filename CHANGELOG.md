@@ -1,3 +1,4 @@
+    * Added `--no-color` options.
 v0.1.10
     * Replaced `--no-*-selectors` by `no-*`.
     * Introduced `--column-size` option.
