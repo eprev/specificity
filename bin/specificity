@@ -63,6 +63,10 @@ program
     })
     ;
 
+function isAbsolute(p) {
+    return path.resolve(p) === path.normalize(p);
+}
+
 function loadProfiles(cwd, options) {
     var files = [];
     options.forEach(function (opt) {
@@ -71,7 +75,8 @@ function loadProfiles(cwd, options) {
                 files.push('-');
             }
         } else {
-            glob.sync(path.join(cwd, opt)).forEach(function (file) {
+            var p = isAbsolute(opt) ? opt : path.join(cwd, opt);
+            glob.sync(p).forEach(function (file) {
                 if (files.indexOf(file) === -1) {
                     files.push(file);
                 }
