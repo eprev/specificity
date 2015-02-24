@@ -1,3 +1,5 @@
+v0.1.11
+    * Bug fixes.
     * Added `--no-color` options.
 v0.1.10
     * Replaced `--no-*-selectors` by `no-*`.
