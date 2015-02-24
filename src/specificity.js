@@ -39,29 +39,31 @@ exports.parse = function (files, options) {
             };
         }
         root.eachRule(function (rule) {
-            var important = 0;
-            rule.eachDecl(function (decl) {
-                if (decl.important) {
-                    important++;
-                }
-            });
-            rule.selectors.forEach(function (selector) {
-                if (options.uniqueSelectors && uniqueSelectors[selector]) {
-                    uniqueSelectors[selector]++;
-                } else {
-                    uniqueSelectors[selector] = 1;
-                    var weight = getSpecificity(selector);
-                    var o = {
-                        selector: selector,
-                        important: important,
-                        weight: weight,
-                        file: file,
-                        start: rule.source.start,
-                        end: rule.source.end
-                    };
-                    series.push(o);
-                }
-            });
+            if (!(rule.parent.type === 'atrule' && rule.parent.name.indexOf('keyframes') !== -1)) {
+                var important = 0;
+                rule.eachDecl(function (decl) {
+                    if (decl.important) {
+                        important++;
+                    }
+                });
+                rule.selectors.forEach(function (selector) {
+                    if (options.uniqueSelectors && uniqueSelectors[selector]) {
+                        uniqueSelectors[selector]++;
+                    } else {
+                        uniqueSelectors[selector] = 1;
+                        var weight = getSpecificity(selector);
+                        var o = {
+                            selector: selector,
+                            important: important,
+                            weight: weight,
+                            file: file,
+                            start: rule.source.start,
+                            end: rule.source.end
+                        };
+                        series.push(o);
+                    }
+                });
+            }
         });
     });
 
