@@ -3,7 +3,21 @@
 var express = require('express');
 var path = require('path');
 
+function compact(data) {
+    data.forEach(function (profile) {
+        var files = profile.json.files;
+        Object.keys(files).forEach(function (file) {
+            var file = files[file];
+            // Replace series property by the actual number of selectors
+            file.series = file.series ? file.series.length : 0;
+        });
+        // Delete the list of unique selectors
+        delete profile.json.uniqueSelectors;
+    });
+}
+
 module.exports = function (data, reportOptions) {
+    compact(data);
     var app = express();
     app.use(express.static(path.join(__dirname, 'server')));
     app.get('/data', function (req, res) {

@@ -184,7 +184,7 @@ function updateTimelineX(target, mapFn) {
 
 function updateTimelineSelectors() {
     updateTimelineX('#chart-selectors', function (file) {
-        return file.series.length;
+        return file.series;
     });
 }
 
@@ -348,7 +348,7 @@ function updateProfileX(files, target, mapFn) {
 
 function updateProfileSelectors(files) {
     updateProfileX(files, '#chart-selectors', function (file) {
-        return file.series.length;
+        return file.series;
     });
 }
 
