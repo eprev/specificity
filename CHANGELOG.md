@@ -1,3 +1,7 @@
+v0.1.12
+
+* Improved performance and page load time dramatically for server reports.
+
 v0.1.11
 
 * Bug fixes.
